@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Pae</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      animation: fadeInUp 0.5s ease both;
+    }
+    .welcome-card {
+      text-align: center;
+      max-width: 400px;
+    }
+    .welcome-card h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .welcome-card p {
+      color: var(--text2);
+      margin-bottom: 40px;
+    }
+    .welcome-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .welcome-btn {
+      padding: 20px 32px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+      display: block;
+    }
+    .welcome-btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+    .welcome-btn.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .welcome-btn.secondary {
+      background: var(--bg2);
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .welcome-btn.secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .login-form-section {
+      display: none;
+    }
+    .login-form-section.active {
+      display: block;
+    }
+    .back-choice {
+      margin-top: 24px;
+      color: var(--text2);
+      cursor: pointer;
+    }
+    .back-choice:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="splash" class="splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo">
+      <span class="splash-icon">🛍️</span>
+      <h1 class="splash-title">Shop<em>ify</em></h1>
+    </div>
+    <div class="splash-loader">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+    </div>
+    <p class="splash-tagline">Loading... Experience the premium na di mo nadama charot</p>
+  </div>
+  <div class="splash-particles">
+    <span class="particle">✨</span>
+    <span class="particle">🛍️</span>
+    <span class="particle">🎁</span>
+    <span class="particle">💫</span>
+    <span class="particle">🛒</span>
+    <span class="particle">⭐</span>
+  </div>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <div class="header-spacer"></div>
+    <a href="index.html" class="logo">Shop<em>ify</em></a>
+    <div class="header-spacer"></div>
+    <a href="track-order.html" class="icon-btn" title="Track Order" aria-label="Track Order">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+        <line x1="12" y1="22.08" x2="12" y2="12"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+
+<main class="main-content">
+  
+  <div class="welcome-card" id="welcomeSection">
+    <h1>Welcome to Shopify</h1>
+    <p>Choose how you'd like to continue</p>
+    
+    <div class="welcome-options">
+      <a href="account.html" class="welcome-btn primary">🆕 New User? Create Account</a>
+      <button class="welcome-btn secondary" onclick="showLoginForm()">🔐 Returning? Sign In</button>
+    </div>
+  </div>
+
+
+  <div class="login-card" id="loginSection">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue shopping</p>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="youandiyiee@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="login-btn">Sign In</button>
+    </form>
+
+    <div class="form-footer">
+      <p>Don't have an account? <a href="account.html">Create one</a></p>
+    </div>
+    
+    <div class="back-choice" onclick="showWelcome()">
+      ← Back to choices
+    </div>
+  </div>
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<script>
+ 
+  function showLoginForm() {
+    document.getElementById('welcomeSection').style.display = 'none';
+    document.getElementById('loginSection').classList.add('active');
+  }
+  
+  
+  function showWelcome() {
+    document.getElementById('loginSection').classList.remove('active');
+    document.getElementById('welcomeSection').style.display = 'block';
+  }
+  
+
+  (function() {
+    if (ShopNowDB.hasUser()) {
+      showLoginForm();
+    }
+  })();
+</script>
+
+</body>
+</html>
